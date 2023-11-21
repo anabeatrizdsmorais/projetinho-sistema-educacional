@@ -1,0 +1,102 @@
+create database SistemaEducacional1
+default character set utf8
+default collate utf8_general_ci;
+
+use sistemaeducacional;
+
+-- Tabela administrador
+CREATE TABLE adm (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR (100) NOT NULL,
+    CPF INT (11),
+    inativo SET ('sim', 'nao'),
+    usuarios VARCHAR (100),
+    email VARCHAR(100) UNIQUE
+)default charset = utf8;
+    
+-- Tabela para cursos
+CREATE TABLE cursos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    inativo SET ('sim', 'nao'),
+    criado_em DATE,
+    usuarios VARCHAR (100),
+    origem set ('Exatas', 'Humanas', 'Biológica')
+)default charset = utf8;
+
+
+-- Tabela para alunos
+CREATE TABLE alunos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    data_nascimento DATE,
+    endereco VARCHAR(255),
+    email VARCHAR(100) UNIQUE,
+    inativo SET ('sim', 'nao'),
+    status_al SET ("cursando", "trancado", "cancelado"),
+    criado_em DATE,
+    curso_id INT,
+    usuarios VARCHAR (100),
+    FOREIGN KEY (curso_id) REFERENCES cursos(id)
+)default charset = utf8;
+
+-- Tabela para diário
+CREATE TABLE diário (
+     aluno_id INT,
+     disciplina_id INT,
+     professor_id INT,
+     nota numeric (3),
+     frequencia SET ('P', 'A'),
+     criado_em DATE,
+     conteudo VARCHAR (200),
+     situação SET ("aprovado", "reprovado", "cursando"),
+     usuarios VARCHAR (100),
+     semestre VARCHAR (6)
+)default charset = utf8;
+
+-- Tabela para professores
+CREATE TABLE professores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    inativo SET ('sim', 'nao'),
+    usuarios VARCHAR (100),
+    especialidade VARCHAR(100)
+)default charset = utf8;
+
+
+-- Tabela para inscrições em cursos
+CREATE TABLE inscricoes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    aluno_id INT,
+    curso_id INT,
+    FOREIGN KEY (aluno_id) REFERENCES alunos(id),
+    FOREIGN KEY (curso_id) REFERENCES cursos(id)
+)default charset = utf8;
+
+
+-- Tabela para disciplinas
+CREATE TABLE disciplinas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    curso_id INT,
+    professor_id INT (100),
+    criado_em DATE,
+    valor DECIMAL (10,2),
+    periodo INT (2),
+    criado_em DATE,
+    usuarios VARCHAR (100),
+    FOREIGN KEY (professor_id) REFERENCES professores(id),
+    FOREIGN KEY (curso_id) REFERENCES cursos(id)
+)default charset = utf8;
+
+-- Tabela para usuário
+CREATE TABLE usuarios (
+     id INT AUTO_INCREMENT PRIMARY KEY,
+     login VARCHAR (100) unique,
+     senha VARCHAR (36),
+     nome VARCHAR (100),
+     criado_em DATE,
+     usuarios VARCHAR (100),
+     atualizado_em DATETIME,
+     nível ENUM ("0", "1", "2", "3")
+)default charset = utf8;
