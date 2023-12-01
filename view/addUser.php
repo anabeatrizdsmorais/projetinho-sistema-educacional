@@ -47,7 +47,7 @@ require_once('../config/config.php');
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="">Senha</label>
-                                <input type="text" name="senha" class="form-control">
+                                <input type="password" name="senha" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">

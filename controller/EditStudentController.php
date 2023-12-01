@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 require_once('../config/config.php');
 
@@ -10,6 +11,8 @@ try {
     $endereco = !empty($_POST['endereco']) ? strtoupper($_POST['endereco']) : "";
     $email = !empty($_POST['email']) ?  strtoupper($_POST['email']) : "";
     $curso_id = $_POST['curso_id'];
+
+    // $data_atual =
     
     $stmt = $pdo->prepare(" 
         UPDATE alunos 

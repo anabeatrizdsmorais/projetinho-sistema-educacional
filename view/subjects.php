@@ -35,7 +35,7 @@ try {
             <br>
 
             <div>
-                <input type="text" class="form-control" name="buscar" id="buscar" placeholder="Pesquisar..." />
+                <input type="text" class="form-control" name="buscar" id="buscar" placeholder="Pesquisar..." oninput=" searchField() "/>
             </div>
             
             <br>

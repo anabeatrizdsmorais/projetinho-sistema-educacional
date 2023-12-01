@@ -56,3 +56,38 @@ document.getElementById('form_user').addEventListener('submit', function(e) {
     }
 
 });
+
+// Função para pesquisar um dado em uma tabela
+function searchField () {
+    // Get input element value
+    var input = document.getElementById('buscar');
+    var filter = input.value.toUpperCase();
+
+    // Get the table body
+    var tableBody = document.querySelector('tbody');
+
+    // Get all rows in the table body
+    var rows = tableBody.getElementsByTagName('tr');
+
+    // Loop through all rows and hide those that don't match the search input
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];
+        var cells = row.getElementsByTagName('td');
+
+        // Concatenate the text content of all cells in a row
+        var rowText = '';
+        for (var j = 0; j < cells.length; j++) {
+            rowText += cells[j].textContent || cells[j].innerText;
+        }
+
+        // Convert the row text to uppercase for case-insensitive search
+        rowText = rowText.toUpperCase();
+
+        // If the row text contains the filter, display the row; otherwise, hide it
+        if (rowText.indexOf(filter) > -1) {
+            row.style.display = '';
+        } else {
+            row.style.display = 'none';
+        }
+    }
+}

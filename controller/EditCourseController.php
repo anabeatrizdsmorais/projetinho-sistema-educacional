@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 /**
  * EditCourseController.php
@@ -16,14 +16,17 @@ try {
     $carga_horaria = strtoupper($_POST['carga_horaria']);
     $descricao = strtoupper($_POST['descricao']);
     $status = $_POST['status'];
+
+    $data_atual = date('Y-m-d H:i:s');
     
-    $stmt = $pdo->prepare(" 
-        UPDATE cursos 
+    $stmt = $pdo->prepare(" UPDATE cursos 
         SET nome = :nome, 
         origem = :origem,
         carga_horaria = :carga_horaria, 
         descricao = :descricao,
-        status = :status
+        status = :status,
+        atualizado_em = :atualizado_em,
+        usuario = :usuario
         WHERE id = :id 
     ");
     
@@ -32,7 +35,8 @@ try {
     $stmt->bindParam(':carga_horaria', $carga_horaria, PDO::PARAM_STR);
     $stmt->bindParam(':descricao', $descricao, PDO::PARAM_STR);
     $stmt->bindParam(':status', $status, PDO::PARAM_STR);
-
+    $stmt->bindParam(':atualizado_em', $data_atual, PDO::PARAM_STR);
+    $stmt->bindParam(':usuario', $_SESSION["nome"], PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     
     if ($stmt->execute()) {

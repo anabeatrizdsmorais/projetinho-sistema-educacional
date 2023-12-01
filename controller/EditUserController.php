@@ -10,15 +10,15 @@ try {
     $nivel = $_POST['nivel'];
     $confirmar_senha = $_POST['confirmar_senha'];
     $senha = $confirmar_senha && !empty($_POST['senha']) ? $_POST['confirmar_senha'] : $_POST['senha'];
-
+    $data_atual = date('Y-m-d H:i:s');
     // $hashSenha = $confirmar_senha != "" ? password_hash($senha, PASSWORD_DEFAULT) : 0;
     
-    $stmt = $pdo->prepare(" 
-        UPDATE usuarios 
+    $stmt = $pdo->prepare(" UPDATE usuarios 
         SET nome = :nome, 
         login = :login, 
         nivel = :nivel,
-        senha = :senha
+        senha = :senha,
+        atualizado_em = :atualizado_em
         WHERE id = :id 
     ");
     
@@ -26,6 +26,7 @@ try {
     $stmt->bindParam(':login', $login, PDO::PARAM_STR);
     $stmt->bindParam(':nivel', $nivel, PDO::PARAM_STR);
     $stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
+    $stmt->bindParam(':atualizado_em', $data_atual, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     
     if ($stmt->execute()) {

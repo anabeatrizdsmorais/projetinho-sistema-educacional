@@ -3,7 +3,7 @@ session_start();
 
 require_once('../config/config.php');
 try {
-    $query = "SELECT * FROM cursos";
+    $query = "SELECT * FROM cursos WHERE inativo = 0 ";
     $stmt = $pdo->query($query);
 
 } catch (PDOException $e) {
@@ -35,7 +35,7 @@ try {
             <br>
             
             <div>
-                <input type="text" class="form-control" name="buscar" id="buscar" placeholder="Pesquisar..." />
+                <input type="text" class="form-control" name="buscar" id="buscar" placeholder="Pesquisar..." oninput=" searchField() " />
             </div>
             
             <br>
