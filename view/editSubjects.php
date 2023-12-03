@@ -3,6 +3,9 @@ session_start();
 
 require_once('../config/config.php');
 try {
+        
+    $id = $_GET['id'];
+
     $query = "SELECT id, nome FROM cursos WHERE status = 1";
     $stmt = $pdo->query($query);
     
@@ -41,7 +44,7 @@ try {
             <hr>
 
             <div class="">
-                <form autocomplete="off" action="../controller/AddSubjectsController.php" method="post">
+                <form autocomplete="off" action="../controller/EditSubjectsController.php" method="post">
                     <div class="row">
 
                         <div class="col-md-6">

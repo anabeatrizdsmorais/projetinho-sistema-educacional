@@ -30,13 +30,14 @@ try {
         <div class="container">
             
             <div style="display: flex; justify-content: space-between;">
-                <h2 class="text-left">Cursos</h2>
+                <h2 class="text-left">Cursos > Adicionar</h2>
             </div>
             <a class="btn btn-success btn-sm float-end" href="./courses.php">
                 <i class="fa-solid fa-list"></i> Listar
             </a>
             
             <br>
+            <hr>
 
             <div class="">
                 <form autocomplete="off" action="../controller/AddCourseController.php" method="post">

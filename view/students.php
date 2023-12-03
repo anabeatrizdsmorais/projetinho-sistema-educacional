@@ -49,7 +49,6 @@ try {
                             <th>#</th>
                             <th>Nome</th>
                             <th>Data de Nascimento</th>
-                            <th>Endereço</th>
                             <th>E-mail</th>
                             <th>Curso</th>
                             <th>Ações</th>
@@ -68,7 +67,6 @@ try {
                                     echo $row['data_nascimento'] ? date("d/m/Y", strtotime($row['data_nascimento'])) : '-'; 
                                 ?>
                             </td>
-                            <td><?php echo $row['endereco'] ?></td>
                             <td><?php echo $row['email'] ?></td>
                             <td><?php echo $row['curso'] ?></td>
                             <td>

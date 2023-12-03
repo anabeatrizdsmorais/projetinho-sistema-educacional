@@ -14,18 +14,24 @@ try {
     $usuario = $_SESSION['nome'];
 
     
-    $insert = $pdo->prepare(
-        " INSERT INTO disciplinas (nome, curso_id, professor_id, valor, periodo, criado_em, usuario) 
-        VALUES (:nome, :curso_id, :professor_id, :valor, :periodo, :criado_em, :usuario) "
-    );
+    $stmt = $pdo->prepare(" UPDATE disciplinas 
+        SET nome = :nome, 
+        curso_id = :curso_id,
+        professor_id = :professor_id,
+        usuario = :usuario,
+        periodo = :periodo,
+        valor = :valor
+        WHERE id = :id 
+    ");
+    
+    $stmt->bindParam(':nome', $nome, PDO::PARAM_STR);
+    $stmt->bindParam(':curso_id', $curso_id, PDO::PARAM_STR);
+    $stmt->bindParam(':professor_id', $professor_id, PDO::PARAM_STR);
+    $stmt->bindParam(':periodo', $periodo, PDO::PARAM_STR);
+    $stmt->bindParam(':valor', $valor, PDO::PARAM_STR);
+    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
 
-    $insert->bindParam(":nome", $nome);
-    $insert->bindParam(":curso_id", $curso_id);
-    $insert->bindParam(":professor_id", $professor_id);
-    $insert->bindParam(":valor", $valor);
-    $insert->bindParam(":periodo", $periodo);
-    $insert->bindParam(":criado_em", $data_atual);
-    $insert->bindParam(":usuario", $usuario);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     
     if ($insert->execute()) {
         echo "<script>

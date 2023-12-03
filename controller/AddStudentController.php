@@ -15,9 +15,13 @@ try {
     $endereco = !empty($_POST['endereco']) ? strtoupper($_POST['endereco']) : "";
     $email = !empty($_POST['email']) ?  strtoupper($_POST['email']) : "";
     $cursoId = !empty($_POST['curso_id']) ? $_POST['curso_id'] : 0;
+
+    $data_atual = date("Y-m-d H:i:s");
+    $usuario = $_SESSION['nome'];
     
     $insert = $pdo->prepare(
-        " INSERT INTO alunos (nome, data_nascimento, endereco, email, curso_id) VALUES (:nome, :data_nascimento, :endereco, :email, :curso_id) "
+        " INSERT INTO alunos (nome, data_nascimento, endereco, email, curso_id, usuario, criado_em, atualizado_em, inativo) 
+        VALUES (:nome, :data_nascimento, :endereco, :email, :curso_id, :usuario, :criado_em, :atualizado_em, 0) "
     );
 
     $insert->bindParam(":nome", $nome);
@@ -25,18 +29,10 @@ try {
     $insert->bindParam(":endereco", $endereco);
     $insert->bindParam(":email", $email);
     $insert->bindParam(":curso_id", $cursoId);
+    $insert->bindParam(":usuario", $usuario);
+    $insert->bindParam(":criado_em", $data_atual);
+    $insert->bindParam(":atualizado_em", $data_atual);
     
-    // $insertUser = $pdo->prepare("INSERT INTO usuarios (nome, login, senha, nivel) VALUES (:nome, :login, :senha, :nivel) ");
-
-    // $senha = "aluno";
-    // $nivel = 3;
-
-    // $insertUser->bindParam(":nome", $nome);
-    // $insertUser->bindParam(":login", $email);
-    // $insertUser->bindParam(":senha", $senha);
-    // $insertUser->bindParam(":nivel", $nivel);
-
-    // $insert->execute();
     if ($insert->execute()) {
         echo "<script>
             alert('Dados inseridos com sucesso!') ;
