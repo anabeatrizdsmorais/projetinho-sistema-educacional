@@ -36,9 +36,12 @@ try {
             <div style="display: flex; justify-content: space-between;">
                 <h2 class="text-left">Diário</h2>
             </div>
-            <a class="btn btn-success btn-sm float-end" href="./addNotes.php">
-                <i class="fa-solid fa-plus"></i> Adicionar
-            </a>
+
+            <?php if( $_SESSION['nivel'] != 3): ?>
+                <a class="btn btn-success btn-sm float-end" href="./addNotes.php">
+                    <i class="fa-solid fa-plus"></i> Adicionar
+                </a>
+            <?php endif; ?>
             
             <br>
             <br>
